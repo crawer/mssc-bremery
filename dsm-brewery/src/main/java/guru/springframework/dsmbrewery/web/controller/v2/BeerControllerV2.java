@@ -57,20 +57,8 @@ public class BeerControllerV2 {
 
     @DeleteMapping({"/{beerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBeer(@PathVariable("beerId")  UUID beerId){
+    public void deleteBeer(@PathVariable("beerId")  UUID beerId) {
 
         beerServiceV2.deleteBeerId(beerId);
     }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List> validationErrorHandler(ConstraintViolationException e){
-        List<String> erros = new ArrayList<>(e.getConstraintViolations().size());
-
-        e.getConstraintViolations().forEach(constraintViolation -> {
-            erros.add(constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage());
-        });
-
-        return new ResponseEntity<>(erros, HttpStatus.BAD_REQUEST);
-    }
-
 }

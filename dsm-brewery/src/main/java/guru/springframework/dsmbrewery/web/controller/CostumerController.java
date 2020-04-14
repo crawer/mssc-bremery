@@ -57,15 +57,4 @@ public class CostumerController {
         costumerService.deleteCostumerId(costumerId);
     }
 
-    //Exception Handler
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List> validationErrorHandler(ConstraintViolationException e){
-        List<String> erros = new ArrayList<>(e.getConstraintViolations().size());
-
-        e.getConstraintViolations().forEach(constraintViolation -> {
-            erros.add(constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage());
-        });
-        return new ResponseEntity<>(erros, HttpStatus.BAD_REQUEST);
-
-    }
 }
